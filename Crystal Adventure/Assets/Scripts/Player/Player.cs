@@ -7,16 +7,16 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpForce = 150f;
     [SerializeField] private int facingDirection = 1;
 
-    [Header("Shooting Settings for the Player")]
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private ObjectPooler pooler;
-    [SerializeField] private float swordForce = 15f;
-
     [Header("GroundCheck Settings")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float checkRadius;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private bool isGrounded;
+
+    [Header("Attack Settings")]
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private float attackRange;
+    [SerializeField] private LayerMask enemyLayer;
 
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
         {
             Flip();
         }
+
+        Attack();
 
         HandleAnimations();
     }
@@ -56,6 +58,18 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
         { 
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * Time.deltaTime);
+        }
+    }
+
+    void Attack()
+    {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+            foreach(Collider2D hit in hitEnemies)
+            {
+                Debug.Log("Attacking the Player");
+            }
         }
     }
 

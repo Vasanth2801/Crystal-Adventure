@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
             rb.linearVelocity = new Vector2(speed, 0f);
         }
 
-        if(player.position.x > transform.position.x && facingDirection == 1 || player.position.x < transform.position.x && facingDirection == -1)
+        if(player.position.x < transform.position.x && facingDirection == 1 || player.position.x > transform.position.x && facingDirection == -1)
         {
             Flip();
         }
@@ -83,7 +83,11 @@ public class Enemy : MonoBehaviour
 
         foreach(Collider2D hitPlayer in hitPlayers)
         {
-            Debug.Log("Attacking the Player");
+            PlayerHealth ph = hitPlayer.GetComponent<PlayerHealth>();
+            if(ph != null)
+            {
+                ph.TakeDamage(10);
+            }
         }
     }
 

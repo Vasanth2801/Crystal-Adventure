@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
             foreach(Collider2D hit in hitEnemies)
             {
-                Debug.Log("Attacking the Player");
+                Debug.Log("Attacking the Enemy");
             }
         }
     }
